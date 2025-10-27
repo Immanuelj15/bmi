@@ -14,3 +14,43 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo '=== Cloning BMI React project ==='
+                git branch: 'main', url: 'https://github.com/Immanuelj15/bmi.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('bmi') {
+                    echo '=== Installing npm dependencies ==='
+                    bat '"C:\\Program Files\\nodejs\\npm.cmd" install'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('bmi') {
+                    echo '=== Building React project ==='
+                    bat '"C:\\Program Files\\nodejs\\npm.cmd" run build'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ BMI React project built successfully!"
+        }
+        failure {
+            echo "❌ Build failed! Check the Jenkins console for errors."
+        }
+    }
+}
