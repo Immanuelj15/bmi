@@ -80,3 +80,41 @@ const App = () => {
 };
 
 export default App;
+
+/*
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo '=== Cloning BMI React project ==='
+                git branch: 'main', url: 'https://github.com/Immanuelj15/bmi.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo '=== Installing npm dependencies ==='
+                bat '"C:\\Program Files\\nodejs\\npm.cmd" install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo '=== Building React project ==='
+                bat '"C:\\Program Files\\nodejs\\npm.cmd" run build'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ BMI React project built successfully!"
+        }
+        failure {
+            echo "❌ Build failed! Check the Jenkins console for errors."
+        }
+    }
+}  */
